@@ -8,7 +8,7 @@
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel -d ./build ./api -s",
     "build": "npm run clean && npm run build-babel",
-    "start": "npm run build && node ./build/index.js",
+    "start": "npm run build && node ./build/app.js",
     "test": "nyc mocha --require @babel/register test/**/**.js --exit --timeout 25000"
   },
   "repository": {
