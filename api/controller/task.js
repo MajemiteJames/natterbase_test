@@ -1,5 +1,6 @@
 import moment from 'moment';
 import uuid from 'uuid';
+import Task from '../db/task';
 
 
 /**
@@ -12,34 +13,92 @@ class Description {
        * @param {
            object
        }
-       request the request body
+       req the req body
        * @param {
            object
        }
-       response the response body
+       res the res body
        * @returns {object} data
        * @memberof Description
        */
-  static async withValidation(request, response) {
-    try {
-      return response.status(201).json({
-        status: 'success',
-        data: {
-          id: uuid.v4(),
-          type: request.body.type,
-          crux: request.body.crux,
-          color: request.body.color,
-          title: request.body.title,
-          createdDate: moment.now(),
-          modifiedDate: moment.now()
-        },
-      });
-    } catch (error) {
-      return response.status(400).json({
-        status: 'error',
-        error: error.message,
+  static async withValidation(req, res) {
+    if (!req.body.type
+      && !req.body.crux
+      && !req.body.color
+      && !req.body.title) {
+      return res.status(400).json({
+        success: 'false',
+        status: 400,
+        message: 'All fields are required',
       });
     }
+    if (!req.body.type) {
+      return res.status(400).send({
+        success: 'false',
+        message: 'firstName is required'
+      });
+    } if (!req.body.crux) {
+      return res.status(400).send({
+        success: 'false',
+        message: 'lastName is required'
+      });
+    } if (!req.body.color) {
+      return res.status(400).send({
+        success: 'false',
+        message: 'email is required'
+      });
+    } if (!req.body.title) {
+      return res.status(400).send({
+        success: 'false',
+        message: 'The type of Account is required'
+      });
+    }
+    const Tasks = {
+      id: uuid.v4(),
+      type: req.body.type,
+      crux: req.body.crux,
+      color: req.body.color,
+      title: req.body.title,
+      createdDate: moment.now(),
+      modifiedDate: moment.now()
+    };
+    return res.status(201).send({
+      status: 201,
+      success: 'true',
+      message: 'Task created successfully',
+      Tasks
+    });
+  }
+
+  /**
+       * @description Create Ideas
+       * @param {
+           object
+       }
+       req the req body
+       * @param {
+        object
+      }
+      res the res body
+      * @returns {object} data
+      * @memberof Description
+      */
+  static async withoutValidation(req, res) {
+    if (req.body.type !== 'type') {
+      return res.status(400).send({
+        success: 'false',
+        message: '‘attribute not found'
+      });
+    }
+    Task.forEach((v) => {
+      delete v.type;
+      return res.status(201).send({
+        status: 201,
+        success: 'true',
+        message: 'Task created successfully',
+        Task
+      });
+    });
   }
 }
 

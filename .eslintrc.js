@@ -14,6 +14,7 @@ module.exports = {
         "consistent-return": 0,
         "no-param-reassign": 0,
         "comma-dangle": 0,
+        "linebreak-style": 0,
         "curly": ["error", "multi-line"],
         "import/no-unresolved": [2, {
             "commonjs": true
