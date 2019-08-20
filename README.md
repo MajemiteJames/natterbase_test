@@ -9,15 +9,22 @@ Node.js
 To run:
 
 git clone https://github.com/MajemiteJames/natterbase_test.git
+
 cd natterbase_test
+
 npm install
+
 npm start
+
 The code above gets your server running
 
 # API Endpoints
 GET https://natter-base-test.herokuapp.com/api/v1/tasks/removeItem
+
 GET https://natter-base-test.herokuapp.com/api/v1/tasks/removeItem
+
 POST https://natter-base-test.herokuapp.com/api/v1/tasks
+
 POST https://natter-base-test.herokuapp.com/api/v1/tasks
 
 # Links
